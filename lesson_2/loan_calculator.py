@@ -17,8 +17,9 @@ def check_negative(num):
 
 def display_welcome_message():
     clear_screen()
-    prompt("""Welcome to Car Payment Calculator. We will calculate your monthly payment 
-    assuming that interest is compounded monthly. Press any key to continue:""")
+    prompt("""Welcome to Car Payment Calculator. We will calculate your
+    monthly payment assuming that interest is compounded monthly. 
+    Press any key to continue:""")
 
 def display_monthly_payment(payment):
     prompt(f"Your monthly payment is ${payment:.2f}")
@@ -35,7 +36,7 @@ def invalid_number(num):
         float(num)
     except ValueError:
         return True
-    
+
     return False
 
 def invalid_duration(months):
@@ -43,11 +44,11 @@ def invalid_duration(months):
         int(months)
     except ValueError:
         return True
-    
+
     return False
 
-def invalid_input(input):
-    return input.lower() in ['nan', 'inf']
+def invalid_input(string):
+    return string.lower() in ['nan', 'inf']
 
 def invalid_answer(answer):
     return answer not in ['y', 'yes', 'n', 'no']
@@ -62,25 +63,27 @@ def request_loan_duration():
     prompt("What is the loan duration (months)?")
 
 def request_calculate_again():
-    prompt("Would you like to calculate monthly payments for another loan? (y/n)")
+    prompt("Would you like to calculate again for another loan? (y/n)")
 
 def retrieve_value():
     number = input()
 
-    while invalid_number(number) or invalid_input(number) or check_negative(number):
+    while (invalid_number(number)
+    or invalid_input(number)
+    or check_negative(number)):
         prompt("Please enter a valid number:")
         number = input()
-    
+
     return number
 
 def retrieve_loan_duration():
-    loan_duration = input()
+    months = input()
 
-    while invalid_duration(loan_duration) or check_negative(loan_duration):
+    while invalid_duration(months) or check_negative(months):
         prompt("Please enter a non-negative whole number:")
-        loan_duration = input()
-    
-    return loan_duration
+        months = input()
+
+    return months
 
 def retrieve_answer():
     answer = input().lower()
@@ -92,14 +95,16 @@ def retrieve_answer():
     clear_screen()
     return answer
 
-def calculate_monthly_payment(loan_amount, apr, loan_duration):
+def calculate_monthly_pmt(amount, apr, months):
     monthly_interest = float(apr) / MONTHS_IN_YEAR / 100
+
+    if int(months) == 0:
+        return float(amount)
     if monthly_interest == 0:
-        return float(loan_amount) / int(loan_duration)
-    elif int(loan_duration) == 0:
-        return float(loan_amount)
-    else:
-        return float(loan_amount) * (monthly_interest / (1 - (1 + monthly_interest) ** (-int(loan_duration))))
+        return float(amount) / int(months)
+
+    return float(amount) * (monthly_interest / (1 - (1 + monthly_interest)
+           ** (-int(months))))
 
 
 display_welcome_message()
@@ -115,8 +120,8 @@ while True:
     request_loan_duration()
     loan_duration = retrieve_loan_duration()
 
-    monthly_payment = calculate_monthly_payment(loan_amount, apr_amount, loan_duration)
-    display_monthly_payment(monthly_payment)
+    monthly_pmt = calculate_monthly_pmt(loan_amount, apr_amount, loan_duration)
+    display_monthly_payment(monthly_pmt)
 
     request_calculate_again()
     calc_again = retrieve_answer()
@@ -125,4 +130,3 @@ while True:
         break
 
 display_goodbye_message()
-
