@@ -1,0 +1,40 @@
+{
+    "en": {
+        "welcome": "Welcome to Calculator! All calculations are rounded to the nearest two decimal places.",
+        "first_number": "What's the first number?",
+        "second_number": "What's the second number?",
+        "invalid_number": "Hmm... that doesn't look like a valid number.",
+        "zero_division": "Division by zero not allowed. Please choose a different operation\n1) Add 2) Subtract 3) Multiply",
+        "choose_operation": "What operation would you like to perform?\n1) Add 2) Subtract 3) Multiply 4) Divide",
+        "invalid_operation": "You must choose 1, 2, 3, or 4",
+        "calculate_again": "Would you like to perform another calculation? (y/n) ",
+        "invalid_answer": "Please input a valid answer (y/n):",
+        "goodbye": "Thank you for using Calculator!"
+    },
+
+    "es": {
+        "welcome": "¡Bienvenido a Calculadora! Todos los cálculos se redondean a los dos decimales más próximos.",
+        "first_number": "¿Cuál es el primer número?",
+        "second_number": "¿Cuál es el segundo número?",
+        "invalid_number": "Hmm... eso no parece un número válido.",
+        "zero_division": "No se permite la división por cero. Por favor, elija otra operación\n1) Sumar 2) Restar 3) Multiplicar",
+        "choose_operation": "¿Qué operación desea realizar?\n1) Sumar 2) Restar 3) Multiplicar 4) Dividir",
+        "invalid_operation": "Debe elegir 1, 2, 3 o 4",
+        "calculate_again": "¿Desea realizar otro cálculo? (y/n)",
+        "invalid_answer": "Introduzca una respuesta válida (y/n):",
+        "goodbye": "Gracias por utilizar la calculadora."
+    },
+
+    "jp": {
+        "welcome": "電卓へようこそ!すべての計算は小数点以下2桁で四捨五入されます。",
+        "first_number": "最初の数字は?",
+        "second_number": "2番目の数字は?",
+        "invalid_number": "うーん...有効な数字には見えないね。",
+        "zero_division": "ゼロによる除算はできません。他の演算を選択してください\n1) 加算 2) 減算 3) 乗算",
+        "choose_operation": "どのような操作を行いたいですか?\n1)足し算 2)引き算 3)掛け算 4)割り算",
+        "invalid_operation": "1,2,3,4のいずれかを選択してください。",
+        "calculate_again": "別の計算を行いますか？(y/n)",
+        "invalid_answer": "有効な回答を入力してください(y/n):",
+        "goodbye": "電卓をご利用いただきありがとうございます！"
+    }
+}
