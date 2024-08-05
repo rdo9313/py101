@@ -36,15 +36,18 @@ def display_goodbye_message():
 def display_result(calculation, operator, num1, num2):
     prompt(f"{num1} {operations[operator]} {num2} = {calculation}")
 
-def request_number(number):
-    prompt(number)
+def request_first_number():
+    prompt("first_number")
+
+def request_second_number():
+    prompt("second_number")
 
 def retrieve_number():
-    number = input()
+    number = input().strip()
 
-    while invalid_number(number) or number.lower() in ['nan', 'inf']:
+    while not valid_number(number) or (number.lower() in ['nan', 'inf']):
         prompt("invalid_number")
-        number = input()
+        number = input().strip()
 
     clear_screen()
     return number
@@ -53,30 +56,30 @@ def request_operation():
     prompt("choose_operation")
 
 def retrieve_operation(num):
-    operator = input()
+    operator = input().strip()
 
     while operator == '4' and float(num) == 0:
         prompt("zero_division")
-        operator = input()
+        operator = input().strip()
 
     while operator not in ['1', '2', '3', '4']:
         prompt("invalid_operation")
-        operator = input()
+        operator = input().strip()
 
     return operator
 
 def request_calculate_again():
     prompt("calculate_again")
 
-def retrieve_answer():
-    answer = input().lower()
+def retrieve_yes_or_no():
+    answer = input().strip().lower()
 
-    while invalid_answer(answer):
+    while not valid_yes_or_no(answer):
         prompt("invalid_answer")
-        answer = input().lower()
+        answer = input().strip().lower()
 
     clear_screen()
-    return answer
+    return (answer in ['y', 'yes'])
 
 def calculate(operator, first_num, second_num):
     num1 = float(first_num)
@@ -94,39 +97,42 @@ def calculate(operator, first_num, second_num):
 
     return round(output, 2)
 
-def invalid_number(number_str):
+def valid_number(number_str):
     try:
         float(number_str)
     except ValueError:
-        return True
+        return False
 
-    return False
+    return True
 
-def invalid_answer(answer):
-    return answer not in ['y', 'yes', 'n', 'no']
+def valid_yes_or_no(answer):
+    return answer in ['y', 'yes', 'n', 'no']
 
 clear_screen()
 display_welcome_message()
 
-while True:
-    request_number("first_number")
-    number1 = retrieve_number()
+def main():
+    while True:
+        request_first_number()
+        number1 = retrieve_number()
 
-    request_number("second_number")
-    number2 = retrieve_number()
+        request_second_number()
+        number2 = retrieve_number()
 
-    request_operation()
-    operation = retrieve_operation(number2)
+        request_operation()
+        operation = retrieve_operation(number2)
 
-    result = calculate(operation, number1, number2)
+        result = calculate(operation, number1, number2)
 
-    display_result(result, operation, number1, number2)
+        display_result(result, operation, number1, number2)
 
-    request_calculate_again()
-    calc_again = retrieve_answer()
+        request_calculate_again()
+        calc_again = retrieve_yes_or_no()
 
-    if calc_again in ['n', 'no']:
-        break
+        if not calc_again:
+            break
 
 
-display_goodbye_message()
+    display_goodbye_message()
+
+main()

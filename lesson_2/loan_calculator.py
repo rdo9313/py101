@@ -7,7 +7,12 @@ with open('loan_messages.json', 'r') as file:
 MONTHS_IN_YEAR = 12
 
 def prompt(msg):
-    print(f"==> {msg}")
+    try:
+        MSG[msg]
+    except KeyError:
+        print(f"==> {msg}")
+    else:
+        print(f"==> {MSG[msg]}")
 
 def clear_screen():
     os.system("clear")
