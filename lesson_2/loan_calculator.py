@@ -33,7 +33,7 @@ def display_welcome_message():
 def display_monthly_pmt(loan_amt, apr, months, payment):
     clear_screen()
     line_break()
-    prompt(f"Your loan amount is ${loan_amt:.2f}.")
+    prompt(f"Your loan amount is ${float(loan_amt):.2f}.")
     prompt(f"Your APR is {apr}%.")
     prompt(f"Your loan duration is {months} months.")
     line_break()
