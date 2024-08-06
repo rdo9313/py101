@@ -1,5 +1,5 @@
 {
-    "welcome_message": "Welcome to Car Payment Calculator.\nWe will calculate your monthly payment assuming that interest is compounded monthly.\nPress any key to continue:",
+    "welcome_message": "Welcome to Car Payment Calculator.\nWe will calculate your monthly payment assuming that interest is compounded monthly.\nPress enter to continue:",
     "loan": "What is the total loan amount? Please input with no commas. (i.e. 11200, 25000.35)",
     "apr": "What is the APR %? (i.e. 5.5, 12)",
     "loan_duration": "What is the loan duration (months)?",

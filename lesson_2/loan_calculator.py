@@ -23,6 +23,9 @@ def line_break():
 def is_zero_or_positive(num):
     return float(num) >= 0
 
+def is_positive(num):
+    return float(num) > 0
+
 def valid_loan_decimal(loan):
     return is_integer(loan) or len(loan.rsplit('.')[-1]) <= 2
 
@@ -72,7 +75,7 @@ def valid_yes_or_no(answer):
 def validate_loan(number):
     while nan_or_inf(number) or not \
     (is_float(number)
-    and is_zero_or_positive(number)
+    and is_positive(number)
     and valid_loan_decimal(number)):
         prompt("valid_loan")
         number = input().strip()
@@ -88,7 +91,7 @@ def validate_apr(number):
     return number
 
 def validate_loan_duration(number):
-    while not (is_integer(number) and is_zero_or_positive(number)):
+    while not (is_integer(number) and is_positive(number)):
         prompt("valid_loan_duration")
         number = input().strip()
 
@@ -128,11 +131,10 @@ def calculate_monthly_pmt(amount, apr, months):
     return float(amount) * (monthly_interest / (1 - (1 + monthly_interest)
            ** (-int(months))))
 
-
-display_welcome_message()
-wait_user_input()
-
 def main():
+    display_welcome_message()
+    wait_user_input()
+
     while True:
         prompt("loan")
         loan = retrieve_value("loan")
