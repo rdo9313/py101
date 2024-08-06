@@ -16,7 +16,7 @@ def prompt(message):
     print(f"==> {message}")
 
 def wait_for_input():
-    input("Press any key to continue:")
+    input("Press enter to continue:")
     clear_screen()
 
 def clear_screen():
@@ -31,6 +31,10 @@ First to {WINNING_SCORE} wins will claim victory.""")
 def display_goodbye_message():
     clear_screen()
     prompt("Thanks for playing RPSLS!")
+
+def display_valid_choices():
+    prompt(f"Choose one: {', '.join(VALID_CHOICES)} \
+({', '.join(VALID_SHORTENED_CHOICES)})")
 
 def display_choices(player, computer):
     clear_screen()
@@ -67,7 +71,7 @@ def display_result(winner, score):
 def retrieve_player_choice():
     choice = input().strip().lower()
 
-    while choice not in (VALID_CHOICES and VALID_SHORTENED_CHOICES):
+    while choice not in (VALID_CHOICES + VALID_SHORTENED_CHOICES):
         prompt("That's not a valid choice.")
         choice = input().strip().lower()
 
@@ -98,16 +102,14 @@ def update_score(winner, score):
 def valid_yes_or_no(answer):
     return answer in ['y', 'yes', 'n', 'no']
 
-display_welcome_message()
-wait_for_input()
-
 def main():
+    display_welcome_message()
+    wait_for_input()
+
     while True:
         score = {"player": 0, "computer": 0}
         while max(score.values()) < WINNING_SCORE:
-            prompt(f"Choose one: {', '.join(VALID_CHOICES)} \
-({', '.join(VALID_SHORTENED_CHOICES)})")
-
+            display_valid_choices()
             player_choice = retrieve_player_choice()
             computer_choice = retrieve_computer_choice()
 
