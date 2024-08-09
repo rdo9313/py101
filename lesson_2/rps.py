@@ -1,9 +1,12 @@
 import random
 import os
 
+SCORE = {"player": 0, "computer": 0}
 WINNING_SCORE = 3
 VALID_SHORTENED_CHOICES = ['r', 'p', 's', 'l', 'sp']
 VALID_CHOICES = ['rock', 'paper', 'scissors', 'lizard', 'spock']
+CHOICE_DICT = {'r': 'rock', 'p': 'paper', 's': 'scissors',
+               'l': 'lizard', 'sp': 'spock'}
 WINNING_COMBOS = {
     "rock": ["scissors", "lizard"],
     "paper": ["rock", "spock"],
@@ -19,17 +22,21 @@ def wait_for_input():
     input("Press enter to continue:")
     clear_screen()
 
-def clear_screen():
-    os.system("clear")
+def clear_screen(order = "next"):
+    if order == "no_board":
+        os.system("clear")
+    else:
+        os.system("clear")
+        display_score()
 
 def display_welcome_message():
-    clear_screen()
+    clear_screen("no_board")
     prompt(f"""Welcome to RPSLS.
 Go to https://www.wikihow.com/Play-Rock-Paper-Scissors-Lizard-Spock for rules.
 First to {WINNING_SCORE} wins will claim victory.""")
 
 def display_goodbye_message():
-    clear_screen()
+    clear_screen("no_board")
     prompt("Thanks for playing RPSLS!")
 
 def display_valid_choices():
@@ -43,8 +50,8 @@ def display_choices(player, computer):
 def ask_play_again():
     prompt("Do you want to play again? (y/n)")
 
-def display_winner(score):
-    if score["player"] == WINNING_SCORE:
+def display_winner():
+    if SCORE["player"] == WINNING_SCORE:
         prompt("Player won. Congratulations!")
     else:
         prompt("Computer won. Better luck next time!")
@@ -57,7 +64,11 @@ def determine_winner(player, computer):
 
     return "tie"
 
-def display_result(winner, score):
+def display_score():
+    prompt(f"Player: {SCORE["player"]}")
+    prompt(f"Computer: {SCORE["computer"]}")
+
+def display_result(winner):
     if winner == "player":
         prompt("Player wins!")
     elif winner == "computer":
@@ -65,8 +76,12 @@ def display_result(winner, score):
     else:
         prompt("It's a tie!")
 
-    prompt(f"Player: {score["player"]} - Computer: {score["computer"]}")
     wait_for_input()
+
+def reset_score():
+    for key in SCORE:
+        SCORE[key] = 0
+    clear_screen()
 
 def retrieve_player_choice():
     choice = input().strip().lower()
@@ -76,7 +91,7 @@ def retrieve_player_choice():
         choice = input().strip().lower()
 
     if choice in VALID_SHORTENED_CHOICES:
-        choice = VALID_CHOICES[VALID_SHORTENED_CHOICES.index(choice)]
+        choice = CHOICE_DICT[choice]
 
     return choice
 
@@ -93,11 +108,11 @@ def retrieve_yes_or_no():
     clear_screen()
     return (answer in ['y', 'yes'])
 
-def update_score(winner, score):
+def update_score(winner):
     if winner == "player":
-        score["player"] += 1
+        SCORE["player"] += 1
     elif winner == "computer":
-        score["computer"] += 1
+        SCORE["computer"] += 1
 
 def valid_yes_or_no(answer):
     return answer in ['y', 'yes', 'n', 'no']
@@ -107,19 +122,19 @@ def main():
     wait_for_input()
 
     while True:
-        score = {"player": 0, "computer": 0}
-        while max(score.values()) < WINNING_SCORE:
+        reset_score()
+        while max(SCORE.values()) < WINNING_SCORE:
             display_valid_choices()
             player_choice = retrieve_player_choice()
             computer_choice = retrieve_computer_choice()
 
-            display_choices(player_choice, computer_choice)
-
             winner = determine_winner(player_choice, computer_choice)
-            update_score(winner, score)
-            display_result(winner, score)
+            update_score(winner)
 
-        display_winner(score)
+            display_choices(player_choice, computer_choice)
+            display_result(winner)
+
+        display_winner()
         ask_play_again()
         play_again = retrieve_yes_or_no()
 
